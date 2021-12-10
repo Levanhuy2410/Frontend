@@ -1,0 +1,68 @@
+<h3>{{headerText}}</h3>
+<hr />
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label class="col-3" for="projectNumber">Project Number</label>
+    <input class="col-3" type="number" id="projectNumber" pInputText formControlName="projectNumber" />
+  </div>
+  <br />
+  <div class="form-group">
+    <label class="col-3" for="projectName">Project name</label>
+    <input class="col-9" type="text" id="projectName" pInputText formControlName="name" />
+  </div>
+  <br />
+  <div class="form-group">
+    <label class="col-3" for="customer">Customer</label>
+    <input class="col-9" type="text" id="customer" pInputText formControlName="customer" />
+  </div>
+  <br />
+  <div class="form-group">
+    <label class="col-3" for="group">Group</label>
+    <select *ngFor="let id of groupList$ | async" class="col-3" name="" id="group" pInputText formControlName="groupId">
+      <option [value]="id">{{id}}</option>
+    </select>
+  </div>
+  <br />
+  <div class="form-group">
+    <label class="col-3" for="members">Members</label>
+    <p-multiSelect [options]="employeeList$ | async" formControlName="members" optionLabel="Last_Name" optionValue="Visa"></p-multiSelect>
+  </div>
+  <br />
+  <div class="form-group">
+    <label class="col-3" for="status">Status</label>
+    <select class="col-3" name="" id="status" pInputText formControlName="status">
+      <option value="NEW">New</option>
+      <option value="PLA">Planned</option>
+      <option value="INP">In progress</option>
+      <option value="FIN">Finished</option>
+    </select>
+  </div>
+  <br />
+  <div class="form-group">
+    <label class="col-3" for="startDate">Start Date</label>
+    <input class="col-3" type="date" id="startDate" pInputText formControlName="startDate"/>
+
+    <label class="col-3" for="endDate">End Date</label>
+    <input class="col-3" type="date" id="endDate" pInputText formControlName="endDate"/>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-6"></div>
+    <button
+      pButton
+      pRipple
+      class="p-button-raised p-button-text p-button-plain"
+      type="reset"
+      label="Cancel"
+    ></button>
+    <div class="col-sm-1"></div>
+    <button
+      pButton
+      pRipple
+      class="p-button-info"
+      type="submit"
+      label="Create Project"
+      [disabled]="!postForm.valid"
+    ></button>
+  </div>
+</form>

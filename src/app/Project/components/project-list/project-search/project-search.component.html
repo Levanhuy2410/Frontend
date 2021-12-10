@@ -1,0 +1,38 @@
+<form class="form-inline" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <label class="sr-only" for="detail">Name</label>
+  <input
+    type="text"
+    class="form-control mb-2 mr-sm-2"
+    id="detail"
+    placeholder="Project number, detail, name"
+    pInputText
+    formControlName="detail"
+  />
+
+  <label class="sr-only" for="status">Username</label>
+  <div class="input-group mb-2 mr-sm-2">
+    <select type="text" class="form-control" id="status" pInputText formControlName="status">
+      <!-- <option value="" disabled selected>Project Status</option> -->
+      <option value="NEW">New</option>
+      <option value="PLA">Planned</option>
+      <option value="INP">In progress</option>
+      <option value="FIN">Finished</option>
+    </select>
+  </div>
+  <button
+    pButton
+    pRipple
+    class="p-button-info mb-2"
+    type="submit"
+    label="Search Project"
+    [disabled]="!searchForm.valid"
+  ></button>
+  <button
+    pButton
+    pRipple
+    class="p-button-raised p-button-text p-button-plain mb-2"
+    type="reset"
+    label="Cancel"
+    (click)="onReset()"
+  ></button>
+</form>
