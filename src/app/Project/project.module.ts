@@ -1,3 +1,4 @@
+import { ProjectUpdateService } from './services/project-update.service';
 import { NgModule } from '@angular/core';
 import { PIMBaseModule } from '../Base/base.module';
 import { ProjectListComponent } from './components';
@@ -12,10 +13,13 @@ import { TableModule } from 'primeng/table';
 import { ApiModule } from '../swagger/api.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ProjectCreateService } from './services/project-create.service';
+import { ProjectListService } from './services/project-list.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [ProjectListComponent, ProjectCreateComponent, ProjectSearchComponent],
-    providers: [],
+    providers: [ProjectCreateService, ProjectListService, ProjectUpdateService, DatePipe],
     imports: [ProjectRoutingModule, PIMBaseModule, ApiModule, ButtonModule,
         InputTextModule, DropdownModule, PaginatorModule, 
         TableModule, ReactiveFormsModule, MultiSelectModule]

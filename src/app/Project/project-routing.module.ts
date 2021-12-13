@@ -7,9 +7,10 @@ import { ProjectCreateComponent } from './components/project-create/project-crea
 
 const routes: Routes = [
     { path: '', component: ProjectListComponent },
-    { path: 'new', component: ProjectCreateComponent},
-    { path: 'edit/:id', component: ProjectCreateComponent},
-    { path: '**', component: NotFoundComponent },
+    { path: 'new', component: ProjectCreateComponent },
+    { path: 'edit/:id', component: ProjectCreateComponent },
+    { path: '404', component: NotFoundComponent },
+    { path: '**', redirectTo: '404' }
 ];
 
 @NgModule({

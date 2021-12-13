@@ -1,49 +1,239 @@
-<h3>{{headerText}}</h3>
+<h3>{{ headerText }}</h3>
 <hr />
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label class="col-3" for="projectNumber">Project Number</label>
-    <input class="col-3" type="number" id="projectNumber" pInputText formControlName="projectNumber" />
+    <label class="col-3" for="projectNumber"
+      >Project Number <span id="required">*</span></label
+    >
+    <input
+      class="col-3"
+      type="number"
+      id="projectNumber"
+      pInputText
+      formControlName="projectNumber"
+    />
+
+    <div
+      *ngIf="
+        postForm.get('projectNumber').invalid &&
+        (postForm.get('projectNumber').dirty ||
+          postForm.get('projectNumber').touched)
+      "
+      class="alert alert-danger"
+    >
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('projectNumber').hasError('required')"
+      >
+        This field is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('projectNumber').hasError('maxlength')"
+      >
+        The maximum length for this field is
+        {{ postForm.get("projectNumber").errors.maxlength.requiredLength }}
+        characters.
+      </small>
+    </div>
   </div>
   <br />
   <div class="form-group">
-    <label class="col-3" for="projectName">Project name</label>
-    <input class="col-9" type="text" id="projectName" pInputText formControlName="name" />
+    <label class="col-3" for="projectName"
+      >Project name <span id="required">*</span></label
+    >
+    <input
+      class="col-9"
+      type="text"
+      id="projectName"
+      pInputText
+      formControlName="name"
+    />
+
+    <div
+      *ngIf="
+        postForm.get('name').invalid &&
+        (postForm.get('name').dirty || postForm.get('name').touched)
+      "
+      class="alert alert-danger"
+    >
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('name').hasError('required')"
+      >
+        This field is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('name').hasError('maxlength')"
+      >
+        The maximum length for this field is
+        {{ postForm.get("name").errors.maxlength.requiredLength }}
+        characters.
+      </small>
+    </div>
   </div>
   <br />
   <div class="form-group">
-    <label class="col-3" for="customer">Customer</label>
-    <input class="col-9" type="text" id="customer" pInputText formControlName="customer" />
+    <label class="col-3" for="customer"
+      >Customer <span id="required">*</span></label
+    >
+    <input
+      class="col-9"
+      type="text"
+      id="customer"
+      pInputText
+      formControlName="customer"
+    />
+
+    <div
+      *ngIf="
+        postForm.get('customer').invalid &&
+        (postForm.get('customer').dirty || postForm.get('customer').touched)
+      "
+      class="alert alert-danger"
+    >
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('customer').hasError('required')"
+      >
+        This field is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('customer').hasError('maxlength')"
+      >
+        The maximum length for this field is
+        {{ postForm.get("customer").errors.maxlength.requiredLength }}
+        characters.
+      </small>
+    </div>
   </div>
   <br />
   <div class="form-group">
-    <label class="col-3" for="group">Group</label>
-    <select *ngFor="let id of groupList$ | async" class="col-3" name="" id="group" pInputText formControlName="groupId">
-      <option [value]="id">{{id}}</option>
+    <label class="col-3" for="group">Group <span id="required">*</span></label>
+    <select
+      *ngFor="let id of groupList$ | async"
+      class="col-3"
+      name=""
+      id="group"
+      pInputText
+      formControlName="groupId"
+    >
+      <option [value]="id">{{ id }}</option>
     </select>
+
+    <div
+      *ngIf="
+        postForm.get('groupId').invalid &&
+        (postForm.get('groupId').dirty || postForm.get('groupId').touched)
+      "
+      class="alert alert-danger"
+    >
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('groupId').hasError('required')"
+      >
+        This field is required.
+      </small>
+    </div>
   </div>
   <br />
   <div class="form-group">
-    <label class="col-3" for="members">Members</label>
-    <p-multiSelect [options]="employeeList$ | async" formControlName="members" optionLabel="Last_Name" optionValue="Visa"></p-multiSelect>
+    <label class="col-3" for="members"
+      >Members <span id="required">*</span></label
+    >
+      <p-multiSelect
+        [options]="employeeList$ | async"
+        formControlName="members"
+        optionLabel="Last_Name"
+        optionValue="Visa"
+      ></p-multiSelect>
+
+    <div
+      *ngIf="
+        postForm.get('members').invalid &&
+        (postForm.get('members').dirty || postForm.get('members').touched)
+      "
+      class="alert alert-danger"
+    >
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('members').hasError('required')"
+      >
+        This field is required.
+      </small>
+    </div>
   </div>
   <br />
   <div class="form-group">
-    <label class="col-3" for="status">Status</label>
-    <select class="col-3" name="" id="status" pInputText formControlName="status">
+    <label class="col-3" for="status"
+      >Status <span id="required">*</span></label
+    >
+    <select
+      class="col-3"
+      name=""
+      id="status"
+      pInputText
+      formControlName="status"
+    >
       <option value="NEW">New</option>
       <option value="PLA">Planned</option>
       <option value="INP">In progress</option>
       <option value="FIN">Finished</option>
     </select>
+
+    <div
+      *ngIf="
+        postForm.get('status').invalid &&
+        (postForm.get('status').dirty || postForm.get('status').touched)
+      "
+      class="alert alert-danger"
+    >
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('status').hasError('required')"
+      >
+        This field is required.
+      </small>
+    </div>
   </div>
   <br />
   <div class="form-group">
-    <label class="col-3" for="startDate">Start Date</label>
-    <input class="col-3" type="date" id="startDate" pInputText formControlName="startDate"/>
+    <label class="col-3" for="startDate"
+      >Start Date <span id="required">*</span></label
+    >
+    <input
+      class="col-3"
+      type="date"
+      id="startDate"
+      pInputText
+      formControlName="startDate"
+    />
 
-    <label class="col-3" for="endDate">End Date</label>
-    <input class="col-3" type="date" id="endDate" pInputText formControlName="endDate"/>
+    <label class="col-3" for="endDate">End Date </label>
+    <input
+      class="col-3"
+      type="date"
+      id="endDate"
+      pInputText
+      formControlName="endDate"
+    />
+
+    <div
+      *ngIf="
+        postForm.get('startDate').invalid &&
+        (postForm.get('startDate').dirty || postForm.get('startDate').touched)
+      "
+      class="alert alert-danger"
+    >
+      <small
+        class="text-danger"
+        *ngIf="postForm.get('startDate').hasError('required')"
+      >
+        This field is required.
+      </small>
+    </div>
   </div>
   <hr />
   <div class="row">
@@ -61,7 +251,7 @@
       pRipple
       class="p-button-info"
       type="submit"
-      label="Create Project"
+      [label]="buttonText"
       [disabled]="!postForm.valid"
     ></button>
   </div>

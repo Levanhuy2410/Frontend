@@ -1,9 +1,10 @@
 import { ProjectListService } from 'src/app/Project/services/project-list.service';
-import { Component, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Paginator } from 'primeng/paginator';
+import { ViewProjectDto } from 'src/app/swagger/models/view-project-dto';
 
 @Component({
     selector: 'pim-grid',
@@ -11,26 +12,25 @@ import { Paginator } from 'primeng/paginator';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService, ConfirmationService]
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, DoCheck {
     projectList$ = this.projectListService.projectListSource;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
-    checked: boolean = false;
-    selectedProject: number[] = [];
+    selectedProject: ViewProjectDto[] = [];
 
     constructor(private messageService: MessageService, private confirmationService: ConfirmationService, private router: Router, public projectListService: ProjectListService) {
 
+    }
+
+    ngDoCheck(): void {
+        console.log(this.selectedProject);
     }
 
     ngOnInit(): void {
     }
 
     deleteSelectedProject() {
-        let ids: number[] = []
-        this.selectedProject.forEach((element, index) => {
-            if (element) {
-                ids.push(index);
-            }
-        });
+        let ids = this.selectedProject.map(a => a.Id);
+        
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete multiple selected project ?',
             header: 'Confirm',
@@ -41,7 +41,7 @@ export class GridComponent implements OnInit {
                         alert("Delete multiple projects successful");
                     },
                     error => {
-                        alert("You have selected not new project");
+                        alert(error.error.Message);
                     }
                 );
             }
@@ -49,8 +49,8 @@ export class GridComponent implements OnInit {
     }
 
     deleteSingleProject(id: number) {
-        let ids: number[] = [];
-        ids.push(id);
+        let ids = this.selectedProject.map(a => a.Id);
+        console.log(ids);
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete this ?',
             header: 'Confirm',
@@ -61,7 +61,7 @@ export class GridComponent implements OnInit {
                         alert("Delete project successful");
                     },
                     error => {
-                        alert("Delete not new project")
+                        alert(error.error.Message);
                     }
                 );
             }

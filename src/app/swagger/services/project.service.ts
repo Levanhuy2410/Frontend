@@ -136,18 +136,14 @@ class ProjectService extends BaseService {
         let __headers = new HttpHeaders();
         let __body: any = null;
         let deleteUrl = this.rootUrl + `/api/Project/Delete/?ids=${ids[0]}`;
-        // var array = [...ids];
-        // console.log(ids);
         if (ids.length > 1){
             for(var i = 1; i < ids.length; i++){
                 deleteUrl = deleteUrl + `&ids=${ids[i]}`;
             };
         }
 
-        // console.log(deleteUrl)
         let req = new HttpRequest<any>(
             'DELETE',
-            // this.rootUrl + `/api/Project/Delete/${ids}`,
             deleteUrl,
             __body,
             {
@@ -259,7 +255,7 @@ class ProjectService extends BaseService {
         __body = project;
         let req = new HttpRequest<any>(
             'PUT',
-            this.rootUrl + `/api/Put`,
+            this.rootUrl + `api/Project/Put`,
             __body,
             {
                 headers: __headers,
