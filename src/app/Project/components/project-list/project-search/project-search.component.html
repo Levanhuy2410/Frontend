@@ -10,15 +10,13 @@
   />
 
   <label class="sr-only" for="status">Username</label>
-  <div class="input-group mb-2 mr-sm-2">
-    <select type="text" class="form-control" id="status" pInputText formControlName="status">
-      <!-- <option value="" disabled selected>Project Status</option> -->
-      <option value="NEW">New</option>
+    <select class="form-control mb-2 mr-sm-2" type="text" id="status" pInputText formControlName="status">
+      <option value="" disabled selected hidden>Project Status</option>
+      <option value="NEW" selected>New</option>
       <option value="PLA">Planned</option>
       <option value="INP">In progress</option>
       <option value="FIN">Finished</option>
     </select>
-  </div>
   <button
     pButton
     pRipple
@@ -32,7 +30,8 @@
     pRipple
     class="p-button-raised p-button-text p-button-plain mb-2"
     type="reset"
-    label="Cancel"
+    label="Reset Search"
+    style="color: #2196F3"
     (click)="onReset()"
   ></button>
 </form>

@@ -10,7 +10,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { StatusPipePipe } from './pipes/status-pipe.pipe';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 // All exported items hear need to declare in public_api.ts
 const DECLARED_EXPORTS = [
@@ -21,7 +24,8 @@ const DECLARED_EXPORTS = [
 const ENTRY_COMPONENTS = [];
 
 const RELAYED_EXPORTS = [
-    CommonModule, TranslateModule, PaginatorModule, TableModule, CheckboxModule, ButtonModule, ConfirmDialogModule
+    CommonModule, TranslateModule, PaginatorModule, TableModule, CheckboxModule, 
+    ButtonModule, ConfirmDialogModule, MessageModule, MessagesModule, ToastModule
 ];
 
 @NgModule({

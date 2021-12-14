@@ -6,6 +6,7 @@ import { EmployeeService, GroupService } from '../../swagger/services';
 import { tap } from 'rxjs/operators';
 import { EmployeeDto } from 'src/app/swagger/models/employee-dto';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class ProjectCreateService {
   groupListSource = new BehaviorSubject<number[]>(null);
   employeeListSource = new BehaviorSubject<EmployeeDto[]>(null);
 
-  constructor(private projectService: ProjectService, private groupService: GroupService, private employeeService: EmployeeService,
-    private router: Router) {
+  constructor(private projectService: ProjectService, private groupService: GroupService, 
+    private employeeService: EmployeeService,
+    private router: Router,
+    private messageService: MessageService
+    ) 
+    {
     this.getGroups().subscribe(
       data => {
         console.log(data);
@@ -46,21 +51,23 @@ export class ProjectCreateService {
   }
 
   createProject(projectDto: ProjectDto) {
-    return this.projectService.ProjectPost(projectDto)
-      .subscribe(
-        data => {
-          alert("Create Project Successful");
-          this.router.navigate(
-            ['project'],
-            {
-              queryParams: { page: 1 }
-            }
-
-          );
-        },
-        error => {
-          alert(error.error.Message);
-        }
-      )
+    
+    return this.projectService.ProjectPost(projectDto);
+      // .subscribe(
+      //   data => {
+      //     // this.messageService.add({severity:'success', summary:'Sucessful', detail:'Create Project Successful'});
+      //     this.router.navigate(
+      //       ['project'],
+      //       {
+      //         queryParams: { page: 1 }
+      //       }
+      //     );
+      //     this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record created' });
+      //   },
+      //   error => {
+      //     // alert(error.error.Message);
+      //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.Message });
+      //   }
+      // )
   }
 }

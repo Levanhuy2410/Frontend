@@ -25,7 +25,6 @@ export class ProjectListService {
         }
         else if (params.page) {
           this.getProjectsPagination(params.page).subscribe();
-          console.log('projectlistservice')
         }
       }
       );

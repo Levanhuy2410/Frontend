@@ -1,18 +1,15 @@
 import { ProjectListService } from 'src/app/Project/services/project-list.service';
 import { Component, ChangeDetectionStrategy, OnInit, ViewChild, DoCheck } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Paginator } from 'primeng/paginator';
 import { ViewProjectDto } from 'src/app/swagger/models/view-project-dto';
-
 @Component({
     selector: 'pim-grid',
     templateUrl: './grid.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService, ConfirmationService]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GridComponent implements OnInit, DoCheck {
+export class GridComponent implements OnInit {
     projectList$ = this.projectListService.projectListSource;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
     selectedProject: ViewProjectDto[] = [];
@@ -21,16 +18,12 @@ export class GridComponent implements OnInit, DoCheck {
 
     }
 
-    ngDoCheck(): void {
-        console.log(this.selectedProject);
-    }
-
     ngOnInit(): void {
     }
 
     deleteSelectedProject() {
         let ids = this.selectedProject.map(a => a.Id);
-        
+
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete multiple selected project ?',
             header: 'Confirm',
@@ -38,10 +31,10 @@ export class GridComponent implements OnInit, DoCheck {
             accept: () => {
                 this.projectListService.deleteMultipleProjects(ids).subscribe(
                     data => {
-                        alert("Delete multiple projects successful");
+                        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
                     },
                     error => {
-                        alert(error.error.Message);
+                        this.messageService.add({ severity: 'warn', summary: 'Error', detail: error.error.Message });
                     }
                 );
             }
@@ -49,8 +42,9 @@ export class GridComponent implements OnInit, DoCheck {
     }
 
     deleteSingleProject(id: number) {
-        let ids = this.selectedProject.map(a => a.Id);
-        console.log(ids);
+        let ids: number[] = [];
+        ids.push(id);
+        // console.log(ids);
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete this ?',
             header: 'Confirm',
@@ -58,10 +52,10 @@ export class GridComponent implements OnInit, DoCheck {
             accept: () => {
                 this.projectListService.deleteProject(ids).subscribe(
                     data => {
-                        alert("Delete project successful");
+                        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
                     },
                     error => {
-                        alert(error.error.Message);
+                        this.messageService.add({ severity: 'warn', summary: 'Error', detail: error.error.Message });
                     }
                 );
             }

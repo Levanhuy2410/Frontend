@@ -1,8 +1,11 @@
+<p-toast position="top-center"></p-toast>
 <p-table
   *ngIf="projectList$ | async as projectList"
   [value]="projectList.Projects"
   responsiveLayout="scroll"
   [(selection)]="selectedProject"
+  [style]="{'background-color':'#fafafa'}"
+  styleClass="p-datatable-gridlines"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -43,6 +46,7 @@
           icon="pi pi-trash"
           class="p-button-danger"
           (click)="deleteSingleProject(project.Id)"
+          *ngIf="project.Status === 'NEW'"
         ></button>
       </td>
     </tr>
@@ -71,6 +75,7 @@
   #paginator
   [rows]="10"
   [totalRecords]="100"
-  pageLinkSize="5"
+  pageLinkSize="4"
   (onPageChange)="paginate($event)"
+  [templateLeft]="true"
 ></p-paginator>

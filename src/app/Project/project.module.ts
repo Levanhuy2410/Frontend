@@ -16,13 +16,17 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ProjectCreateService } from './services/project-create.service';
 import { ProjectListService } from './services/project-list.service';
 import { DatePipe } from '@angular/common';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
     declarations: [ProjectListComponent, ProjectCreateComponent, ProjectSearchComponent],
-    providers: [ProjectCreateService, ProjectListService, ProjectUpdateService, DatePipe],
+    providers: [ProjectCreateService, ProjectListService, ProjectUpdateService, DatePipe, ConfirmationService, MessageService],
     imports: [ProjectRoutingModule, PIMBaseModule, ApiModule, ButtonModule,
-        InputTextModule, DropdownModule, PaginatorModule, 
-        TableModule, ReactiveFormsModule, MultiSelectModule]
+        InputTextModule, DropdownModule, PaginatorModule,
+        TableModule, ReactiveFormsModule, MultiSelectModule, MessageModule, MessagesModule, ConfirmDialogModule]
 })
 export class ProjectModule {
 

@@ -1,1 +1,20 @@
-<p>404 not-found works!</p>
+<div class="row">
+  <div class="col-2">
+    <h2><i  class="pi pi-times-circle icon"></i></h2>
+  </div>
+
+  <div class="col-6">
+    <h2>Unexpected error occurred</h2>
+    <h2>Please <span style="color: red">contact your administrator</span></h2>
+    <h2>
+      Or
+      <a
+        routerLink="/project"
+        routerLinkActive="active"
+        [queryParams]="{ page: 1 }"
+      >
+        back to search project</a
+      >
+    </h2>
+  </div>
+</div>
