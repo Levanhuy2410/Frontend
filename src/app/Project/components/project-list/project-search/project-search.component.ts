@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProjectSearchComponent implements OnInit {
   @Output() resetPage = new EventEmitter();
+  status: any[] = []
 
   searchForm = new FormGroup({
     detail: new FormControl('', Validators.required),
@@ -18,7 +19,14 @@ export class ProjectSearchComponent implements OnInit {
   })
 
   constructor(private router: Router, private route: ActivatedRoute, private projectListService: ProjectListService
-  ) { }
+  ) {
+    this.status = [
+      {name: "New", value: "NEW"},
+      {name: "In progress", value: "INP"},
+      {name: "Planned", value: "PLA"},
+      {name: "Finished", value: "FIN"},
+    ]
+  }
 
   ngOnInit(): void {
   }
@@ -26,7 +34,7 @@ export class ProjectSearchComponent implements OnInit {
   onSubmit() {
     let filter: FilterDto = {
       Detail: this.searchForm.get('detail').value,
-      Status: this.searchForm.get('status').value,
+      Status: this.searchForm.get('status').value.value,
     }
 
     this.resetPage.emit(filter);
@@ -35,11 +43,11 @@ export class ProjectSearchComponent implements OnInit {
       {
 
         relativeTo: this.route,
-        queryParams: { 
+        queryParams: {
           page: 1, // new page
           detail: filter.Detail,
           status: filter.Status
-        }, 
+        },
         // queryParamsHandling: 'merge'
 
       }

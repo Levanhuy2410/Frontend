@@ -1,0 +1,26 @@
+.header{
+    background: red;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+    background: #ffffff;
+}
+
+.p-datatable .p-datatable-footer {
+    background: #ffffff;
+}
+
+.summary {
+    border: 1px solid #e9ecef;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem 1rem;
+    border-width: 0 1px 1px 1px;
+    background-color: #eff7fa;
+}
+
+body .ui-table .ui-table-tbody > tr > td { border: 3px solid black; }
+
+#updateLink {
+    color: inherit;
+}

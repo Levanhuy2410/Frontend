@@ -2,7 +2,7 @@
   <label class="sr-only" for="detail">Name</label>
   <input
     type="text"
-    class="form-control mb-2 mr-sm-2"
+    class="mb-2 mr-sm-2"
     id="detail"
     placeholder="Project number, detail, name"
     pInputText
@@ -10,13 +10,17 @@
   />
 
   <label class="sr-only" for="status">Username</label>
-    <select class="form-control mb-2 mr-sm-2" type="text" id="status" pInputText formControlName="status">
-      <option value="" disabled selected hidden>Project Status</option>
-      <option value="NEW" selected>New</option>
-      <option value="PLA">Planned</option>
-      <option value="INP">In progress</option>
-      <option value="FIN">Finished</option>
-    </select>
+  <p-dropdown
+    [options]="status"
+    placeholder="Project status "
+    styleClass="mb-2 mr-sm-2 status"
+    [style]="{ width: '100%' }"
+    optionLabel="name"
+    id="status"
+    formControlName="status"
+  >
+  </p-dropdown>
+
   <button
     pButton
     pRipple
@@ -31,7 +35,7 @@
     class="p-button-raised p-button-text p-button-plain mb-2"
     type="reset"
     label="Reset Search"
-    style="color: #2196F3"
+    style="color: #2196f3"
     (click)="onReset()"
   ></button>
 </form>

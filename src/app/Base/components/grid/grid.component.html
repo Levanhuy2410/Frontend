@@ -1,73 +1,86 @@
 <p-toast position="top-center"></p-toast>
-<p-table
-  *ngIf="projectList$ | async as projectList"
-  [value]="projectList.Projects"
-  responsiveLayout="scroll"
-  [(selection)]="selectedProject"
-  [style]="{'background-color':'#fafafa'}"
-  styleClass="p-datatable-gridlines"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="width: 3rem">
-        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-      </th>
-      <th>Number</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Customer</th>
-      <th>Start Date</th>
-      <th>Delete</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-project>
-    <tr>
-      <td>
-        <div class="p-field-checkbox">
-          <p-tableCheckbox [value]="project"></p-tableCheckbox>
-        </div>
-      </td>
-      <td>
-        <a
-          [routerLink]="['edit', project.Id]"
-          routerLinkActive="router-link-active"
-          >{{ project.Project_Number }}</a
-        >
-      </td>
-      <td>{{ project.Name }}</td>
-      <td>{{ project.Status | statusPipe }}</td>
-      <td>{{ project.Customer }}</td>
-      <td>{{ project.Start_Date | date: "shortDate" }}</td>
-      <td>
-        <button
-          pButton
-          pRipple
-          type="button"
-          icon="pi pi-trash"
-          class="p-button-danger"
-          (click)="deleteSingleProject(project.Id)"
-          *ngIf="project.Status === 'NEW'"
-        ></button>
-      </td>
-    </tr>
-  </ng-template>
-
-  
-</p-table>
-
-<div class="row">
-  <div class="col-md-9"></div>
-  <button
-    class="col-md-3"
-    pButton
-    pRipple
-    class="p-button-danger mb-2"
-    type="submit"
-    label="Delete Selected Project"
-    (click)="deleteSelectedProject()"
-    *ngIf="selectedProject.length > 0"
-  ></button>
+<div>
+  <p-table
+    *ngIf="projectList$ | async as projectList"
+    [value]="projectList.Projects"
+    responsiveLayout="scroll"
+    [(selection)]="selectedProject"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem; background-color: #ffffff">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th style="background-color: #ffffff">Number</th>
+        <th style="background-color: #ffffff">Name</th>
+        <th style="background-color: #ffffff">Status</th>
+        <th style="background-color: #ffffff">Customer</th>
+        <th style="background-color: #ffffff">Start Date</th>
+        <th style="background-color: #ffffff">Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+      <tr>
+        <td class="record">
+          <div class="p-field-checkbox">
+            <p-tableCheckbox [value]="project"></p-tableCheckbox>
+          </div>
+        </td>
+        <td class="record" style="text-align: center;">
+          <a
+            [routerLink]="['edit', project.Id]"
+            routerLinkActive="router-link-active"
+            id="updateLink"
+            >{{ project.Project_Number }}</a
+          >
+        </td>
+        <td class="record">{{ project.Name }}</td>
+        <td>{{ project.Status | statusPipe }}</td>
+        <td>{{ project.Customer }}</td>
+        <td>{{ project.Start_Date | date: "dd.MM.yyyy" }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger p-button-text"
+            (click)="deleteSingleProject(project.Id)"
+            *ngIf="project.Status === 'NEW'"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
+
+<div class="summary" *ngIf="selectedProject.length > 0">
+  <div
+    class="p-d-flex p-ai-center p-jc-between col-6"
+    style="color: #2196f3; margin-top: 8.5px"
+  >
+    {{ selectedProject.length }} items selected
+  </div>
+  <div
+    class="p-d-flex p-ai-center p-jc-between col-6"
+    style="text-align: right"
+  >
+    <button
+      pButton
+      pRipple
+      class="p-button-danger mb-2"
+      type="submit"
+      label="delete selected items"
+      (click)="deleteSelectedProject()"
+      icon="pi pi-trash"
+      iconPos="right"
+    ></button>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="col-md-9"></div>
+</div> -->
 
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
@@ -77,5 +90,4 @@
   [totalRecords]="100"
   pageLinkSize="4"
   (onPageChange)="paginate($event)"
-  [templateLeft]="true"
 ></p-paginator>

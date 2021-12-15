@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectUpdateService } from '../../services/project-update.service';
 import { DatePipe } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
+import { ValidateDate } from '../../directives/dateCompare.validator'
 @Component({
   selector: 'pim-project-create',
   templateUrl: './project-create.component.html',
@@ -28,10 +28,10 @@ export class ProjectCreateComponent implements OnInit {
     customer: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     groupId: new FormControl(1, Validators.required),
     status: new FormControl('', Validators.required),
-    members: new FormControl([], Validators.required),
+    members: new FormControl([]),
     startDate: new FormControl('', Validators.required),
     endDate: new FormControl('')
-  })
+  }, ValidateDate)
 
   constructor(private route: ActivatedRoute, private projectCreateService: ProjectCreateService
     , private router: Router, private projectUpdateService: ProjectUpdateService, private datePipe: DatePipe,
@@ -42,10 +42,7 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      if (isNaN(params['id'])){
-        this.router.navigate(['/project/404']);
-      }
-      else if (!isNaN(params['id'])) {
+      if (params['id']) {
         this.headerText = "Edit Project information"
         this.buttonText = "Update Project";
         this.confirmHeader = "Do you want to update this project ?"
@@ -78,7 +75,10 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.postForm.invalid) {
+    if (this.postForm.hasError('StartDateIsMore')){
+      this.messageService.add({ severity: 'error', summary: '', detail: "End date is sooner than start date" });
+    }
+    else if (this.postForm.invalid) {
       this.messageService.add({ severity: 'error', summary: '', detail: "Please enter all mandatory fields (*)" });
     }
     else {

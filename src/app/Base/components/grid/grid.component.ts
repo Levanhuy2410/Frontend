@@ -7,7 +7,8 @@ import { ViewProjectDto } from 'src/app/swagger/models/view-project-dto';
 @Component({
     selector: 'pim-grid',
     templateUrl: './grid.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit {
     projectList$ = this.projectListService.projectListSource;
