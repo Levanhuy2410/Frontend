@@ -1,10 +1,26 @@
 <div id="sidebar">
-  <h4><a routerLink="project" [queryParams]="{page: 1}" routerLinkActive="active">Project List</a></h4>
+  <br />
+  <!-- <h4>
+    <a
+      id="link"
+      routerLink="project"
+      [queryParams]="{ page: 1 }"
+      routerLinkActive="active"
+      >{{'ProjectList' | translate}}</a
+    >
+  </h4> -->
   <hr>
-  <h4><a routerLink="project/new" routerLinkActive="active">New</a></h4>
-  <a id="link" routerLink="project" routerLinkActive="project-link">Project</a>
+  <h4><a routerLink="project/new" routerLinkActive="active">{{'StatusOptions.new' | translate}}</a></h4>
   <br />
-  <a>Customer</a>
-  <br />
-  <a>Supplier</a>
+  <div>
+    <a id="link" routerLink="project" routerLinkActive="project-link" [queryParams]="{ page: 1 }"
+      >{{'Project' | translate}}</a
+    >
+  </div>
+  <div>
+    <a>{{'Customer' | translate}}</a>
+  </div>
+  <div>
+    <a>{{'Supplier' | translate}}</a>
+  </div>
 </div>

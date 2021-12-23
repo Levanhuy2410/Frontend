@@ -1,0 +1,63 @@
+{
+  "ProjectInformationManagement": "Project Information Management",
+  "ProjectList": "Project List",
+  "Number": "Number",
+  "Name": "Name",
+  "Status": "Status",
+  "Customer": "Customer",
+  "StartDate": "Start Date",
+  "Delete": "Delete",
+  "DetailPlaceholder": "Project number, detail, name",
+  "StatusPlaceholder": "Project status",
+  "SearchProject": "Search Project",
+  "ResetSearch": "Reset Search",
+  "SelectedItems": "items selected",
+  "DeleteSelectedItems": "delete selected items",
+  "Project": "Project",
+  "Supplier": "Supplier",
+
+  "StatusOptions": {
+    "new": "New",
+    "inp": "In progress",
+    "pla": "Planned",
+    "fin": "Finished"
+  },
+
+  "ProjectNumber": "Project Number",
+  "ProjectName": "Project name",
+  "Group": "Group",
+  "Members": "Members",
+  "EndDate": "End Date",
+  "Cancel": "Cancel",
+  "MembersPlaceholder": "Select members",
+  "Create Project": "Create Project",
+  "Update Project": "Update Project",
+  "New Project": "New Project",
+  "Edit Project information": "Edit Project Information",
+
+  "Required": "This field is required.",
+  "StartDateError": "Start date is more than end date.",
+  "MaxLength": "The maximum length for this field is",
+  "Characters": "characters.",
+
+  "CreateConfirm": "Do you want to create this project ?",
+  "UpdateConfirm": "Do you want to update this project ?",
+  "RecordCreated": "Record created",
+  "RecordUpdated": "Record updated",
+
+  "Yes": "Yes",
+  "No": "No",
+
+  "DeleteSingleConfirm": "Are you sure you want to delete this project ?",
+  "DeleteMultipleConfirm": "Are you sure you want to delete multiple selected project ?",
+  "RecordDeleted": "Record deleted",
+  "Confirmation": "Confirmation",
+
+  "Confirmed": "Confirmed",
+  "Error": "Error",
+
+  "Advanced": {
+    "hideAdvanced": "Hide Advanced Filter",
+    "showAdvanced": "Show Advanced Filter"
+  }
+}

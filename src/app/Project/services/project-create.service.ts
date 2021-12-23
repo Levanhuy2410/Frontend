@@ -5,8 +5,6 @@ import { ProjectService } from '../../swagger/services/project.service';
 import { EmployeeService, GroupService } from '../../swagger/services';
 import { tap } from 'rxjs/operators';
 import { EmployeeDto } from 'src/app/swagger/models/employee-dto';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -16,22 +14,12 @@ export class ProjectCreateService {
   employeeListSource = new BehaviorSubject<EmployeeDto[]>(null);
 
   constructor(private projectService: ProjectService, private groupService: GroupService, 
-    private employeeService: EmployeeService,
-    private router: Router,
-    private messageService: MessageService
+    private employeeService: EmployeeService
     ) 
     {
-    this.getGroups().subscribe(
-      data => {
-        console.log(data);
-      }
-    );
+    this.getGroups().subscribe();
 
-    this.getEmployees().subscribe(
-      data => {
-        console.log(data);
-      }
-    )
+    this.getEmployees().subscribe();
   }
 
   getEmployees(): Observable<EmployeeDto[]> {
@@ -53,21 +41,5 @@ export class ProjectCreateService {
   createProject(projectDto: ProjectDto) {
     
     return this.projectService.ProjectPost(projectDto);
-      // .subscribe(
-      //   data => {
-      //     // this.messageService.add({severity:'success', summary:'Sucessful', detail:'Create Project Successful'});
-      //     this.router.navigate(
-      //       ['project'],
-      //       {
-      //         queryParams: { page: 1 }
-      //       }
-      //     );
-      //     this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record created' });
-      //   },
-      //   error => {
-      //     // alert(error.error.Message);
-      //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.Message });
-      //   }
-      // )
   }
 }

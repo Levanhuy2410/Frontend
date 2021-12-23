@@ -10,7 +10,7 @@ export class StatusPipePipe implements PipeTransform {
       return "New";
     }
     else if (value === "INP"){
-      return "In progress";
+      return "InProgress";
     }
     else if (value === "PLA"){
       return "Planned";

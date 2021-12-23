@@ -1,3 +1,4 @@
+import { SortFilterDto } from './../models/sort-filter-dto';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BaseService } from '../base-service';
@@ -59,12 +60,12 @@ class ProjectService extends BaseService {
      * @param pageSize undefined
      * @return OK
      */
-    ProjectGet_PaginationResponse(pageSize: number): Observable<StrictHttpResponse<ProjectListDto>> {
+    ProjectGet_PaginationResponse(sortFilter: SortFilterDto,pageSize: number): Observable<StrictHttpResponse<ProjectListDto>> {
         let __params = this.newParams();
         let __headers = new HttpHeaders();
-        let __body: any = null;
+        let __body: any = sortFilter;
         let req = new HttpRequest<any>(
-            'GET',
+            'POST',
             this.rootUrl + `/api/Project/GetWithPagination?page=${pageSize}`,
             __body,
             {
@@ -72,7 +73,6 @@ class ProjectService extends BaseService {
                 params: __params,
                 responseType: 'json'
             });
-            // console.log(req);
         return this.http.request<any>(req).pipe(
             __filter(_r => _r instanceof HttpResponse),
             __map((_r) => {
@@ -85,8 +85,8 @@ class ProjectService extends BaseService {
      * @param pageSize undefined
      * @return OK
      */
-    ProjectGetPagination(pageSize: number): Observable<ProjectListDto> {
-        return this.ProjectGet_PaginationResponse(pageSize).pipe(
+    ProjectGetPagination(sortFilter: SortFilterDto, pageSize: number): Observable<ProjectListDto> {
+        return this.ProjectGet_PaginationResponse(sortFilter, pageSize).pipe(
             __map(_r => _r.body)
         );
     }
@@ -224,7 +224,6 @@ class ProjectService extends BaseService {
                 params: __params,
                 responseType: 'json'
             });
-            console.log(req);
 
         return this.http.request<any>(req).pipe(
             __filter(_r => _r instanceof HttpResponse),

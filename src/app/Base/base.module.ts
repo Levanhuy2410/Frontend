@@ -1,3 +1,4 @@
+import { dateFormatPipe } from './pipes/date-pipe.pipe';
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -32,7 +33,8 @@ const RELAYED_EXPORTS = [
     declarations: [
         ...DECLARED_EXPORTS,
         NotFoundComponent,
-        StatusPipePipe
+        StatusPipePipe,
+        dateFormatPipe
     ],
     providers: [
         ConfirmationService,

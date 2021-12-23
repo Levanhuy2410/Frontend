@@ -1,15 +1,17 @@
-<h4>{{ headerText }}</h4>
+<h4>{{ headerText | translate }}</h4>
 <p-messages></p-messages>
 <p-confirmDialog
   [style]="{ width: '50vw' }"
   [baseZIndex]="10000"
   rejectButtonStyleClass="p-button-text"
+  acceptLabel="{{'Yes' | translate}}"
+  rejectLabel="{{'No' | translate}}"
 ></p-confirmDialog>
 <hr />
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()" >
   <div class="form-group">
     <label class="col-3" for="projectNumber"
-      >Project Number <span id="required">*</span></label
+      >{{ "ProjectNumber" | translate }} <span id="required">*</span></label
     >
     <input
       class="col-3"
@@ -31,22 +33,22 @@
         class="text-danger"
         *ngIf="postForm.get('projectNumber').hasError('required')"
       >
-        This field is required.
+        {{ "Required" | translate }}
       </span>
       <span
         class="text-danger"
         *ngIf="postForm.get('projectNumber').hasError('maxlength')"
       >
-        The maximum length for this field is
+        {{ "MaxLength" | translate }}
         {{ postForm.get("projectNumber").errors.maxlength.requiredLength }}
-        characters.
+        {{ "Characters" | translate }}
       </span>
     </span>
   </div>
   <br />
   <div class="form-group">
     <label class="col-3" for="projectName"
-      >Project name <span id="required">*</span></label
+      >{{ "ProjectName" | translate }} <span id="required">*</span></label
     >
     <input
       class="col-9"
@@ -55,7 +57,10 @@
       pInputText
       formControlName="name"
     />
+  </div>
 
+  <div class="row">
+    <div class="col-3"></div>
     <div
       *ngIf="
         postForm.get('name').invalid &&
@@ -67,22 +72,23 @@
         class="text-danger"
         *ngIf="postForm.get('name').hasError('required')"
       >
-        This field is required.
+        {{ "Required" | translate }}
       </span>
       <span
         class="text-danger"
         *ngIf="postForm.get('name').hasError('maxlength')"
       >
-        The maximum length for this field is
+        {{ "MaxLength" | translate }}
         {{ postForm.get("name").errors.maxlength.requiredLength }}
-        characters.
+        {{ "Characters" | translate }}
       </span>
     </div>
   </div>
+
   <br />
   <div class="form-group">
     <label class="col-3" for="customer"
-      >Customer <span id="required">*</span></label
+      >{{ "Customer" | translate }} <span id="required">*</span></label
     >
     <input
       class="col-9"
@@ -91,34 +97,39 @@
       pInputText
       formControlName="customer"
     />
+  </div>
 
+  <div class="row">
+    <div class="col-3"></div>
     <div
       *ngIf="
         postForm.get('customer').invalid &&
         (postForm.get('customer').dirty || postForm.get('customer').touched)
       "
       id="validateError"
-
     >
       <span
         class="text-danger"
         *ngIf="postForm.get('customer').hasError('required')"
       >
-        This field is required.
+        {{ "Required" | translate }}
       </span>
-      <span
+      <div
         class="text-danger"
         *ngIf="postForm.get('customer').hasError('maxlength')"
       >
-        The maximum length for this field is
+        {{ "MaxLength" | translate }}
         {{ postForm.get("customer").errors.maxlength.requiredLength }}
-        characters.
-      </span>
+        {{ "Characters" | translate }}
+      </div>
     </div>
   </div>
+
   <br />
   <div class="form-group">
-    <label class="col-3" for="group">Group <span id="required">*</span></label>
+    <label class="col-3" for="group"
+      >{{ "Group" | translate }} <span id="required">*</span></label
+    >
     <select
       *ngFor="let id of groupList$ | async"
       class="col-3"
@@ -136,50 +147,44 @@
         (postForm.get('groupId').dirty || postForm.get('groupId').touched)
       "
       id="validateError"
-
     >
       <span
         class="text-danger"
         *ngIf="postForm.get('groupId').hasError('required')"
       >
-        This field is required.
+        {{ "Required" | translate }}
       </span>
     </span>
   </div>
   <br />
   <div class="form-group">
-    <label class="col-3" for="members"
-      >Members</label
-    >
+    <label class="col-3" for="members">{{ "Members" | translate }}</label>
     <p-multiSelect
       [options]="employeeList$ | async"
       formControlName="members"
-      defaultLabel="Select members"
-      optionLabel="Last_Name"
+      defaultLabel="{{ 'MembersPlaceholder' | translate }}"
+      optionLabel="Visa"
       optionValue="Visa"
       display="chip"
       [style]="{ width: '75%' }"
     ></p-multiSelect>
-
   </div>
   <br />
   <div class="form-group">
     <label class="col-3" for="status"
-      >Status <span id="required">*</span></label
+      >{{ "Status" | translate }}<span id="required">*</span></label
     >
-    <select
-      class="col-3"
-      name=""
+    <p-dropdown
+      [options]="status"
+      placeholder="{{ 'StatusPlaceholder' | translate }}"
+      styleClass="col-3"
+      [style]="{ padding: '0px' }"
+      optionLabel="name"
+      optionValue="value"
       id="status"
-      pInputText
       formControlName="status"
-      required
     >
-      <option value="NEW" selected="selected">New</option>
-      <option value="PLA">Planned</option>
-      <option value="INP">In progress</option>
-      <option value="FIN">Finished</option>
-    </select>
+    </p-dropdown>
 
     <span
       *ngIf="
@@ -187,54 +192,65 @@
         (postForm.get('status').dirty || postForm.get('status').touched)
       "
       id="validateError"
-
     >
       <span
         class="text-danger"
         *ngIf="postForm.get('status').hasError('required')"
       >
-        This field is required.
+        {{ "Required" | translate }}
       </span>
     </span>
   </div>
   <br />
   <div class="form-group">
     <label class="col-3" for="startDate"
-      >Start Date <span id="required">*</span></label
+      >{{ "StartDate" | translate }} <span id="required">*</span></label
     >
-    <input
-      class="col-3"
-      type="date"
-      id="startDate"
-      pInputText
+    <p-calendar
+      #startDateRef
       formControlName="startDate"
-    />
+      [style]="{ padding: '0px' }"
+      dateFormat="dd-mm-yy"
+      styleClass="col-3"
+      [showIcon]="true"
+    ></p-calendar>
 
-    <label class="col-3" for="endDate">End Date </label>
-    <input
-      class="col-3"
-      type="date"
-      id="endDate"
-      pInputText
+    <label class="col-3" for="endDate">{{ "EndDate" | translate }} </label>
+    <p-calendar
+      #endDateRef
       formControlName="endDate"
-    />
+      [style]="{ padding: '0px' }"
+      dateFormat="dd-mm-yy"
+      styleClass="col-3"
+      [showIcon]="true"
+    ></p-calendar>
+  </div>
 
+  <div class="row">
+    <div class="col-3"></div>
     <div
       *ngIf="
         postForm.get('startDate').invalid &&
         (postForm.get('startDate').dirty || postForm.get('startDate').touched)
+        || postForm.hasError('StartDateIsMore') 
       "
       id="validateError"
-
     >
       <span
         class="text-danger"
         *ngIf="postForm.get('startDate').hasError('required')"
       >
-        This field is required.
+        {{ "Required" | translate }}
+      </span>
+      <span
+        class="text-danger"
+        *ngIf="postForm.hasError('StartDateIsMore')"
+      >
+        {{'StartDateError' | translate}}
       </span>
     </div>
   </div>
+
   <hr />
   <div class="row">
     <div class="col-sm-6"></div>
@@ -242,8 +258,9 @@
       pButton
       pRipple
       class="p-button-raised p-button-text p-button-plain"
-      type="reset"
-      label="Cancel"
+      type="button"
+      label="{{ 'Cancel' | translate }}"
+      (click)="onReset()"
     ></button>
     <div class="col-sm-1"></div>
     <button
@@ -251,7 +268,7 @@
       pRipple
       class="p-button-info"
       type="submit"
-      [label]="buttonText"
+      [label]="buttonText | translate"
     ></button>
   </div>
 </form>

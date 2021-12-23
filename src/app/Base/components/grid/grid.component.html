@@ -1,3 +1,9 @@
+<!-- [lazy]="true"
+    (onLazyLoad)="sorting($event)"
+    [totalRecords]="projectList.PagingInfo.TotalItems"
+    [rows]="10" 
+    [showCurrentPageReport]="true"
+    [paginator]="true" -->
 <p-toast position="top-center"></p-toast>
 <div>
   <p-table
@@ -5,18 +11,32 @@
     [value]="projectList.Projects"
     responsiveLayout="scroll"
     [(selection)]="selectedProject"
+    [lazy]="true"
+    (onLazyLoad)="sorting($event)"
   >
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 3rem; background-color: #ffffff">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th style="background-color: #ffffff">Number</th>
-        <th style="background-color: #ffffff">Name</th>
-        <th style="background-color: #ffffff">Status</th>
-        <th style="background-color: #ffffff">Customer</th>
-        <th style="background-color: #ffffff">Start Date</th>
-        <th style="background-color: #ffffff">Delete</th>
+        <th pSortableColumn="number" style="background-color: #ffffff">
+          {{ "Number" | translate }} <p-sortIcon field="number"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name" style="background-color: #ffffff">
+          {{ "Name" | translate }} <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status" style="background-color: #ffffff">
+          {{ "Status" | translate }} <p-sortIcon field="status"></p-sortIcon>
+        </th>
+        <th pSortableColumn="customer" style="background-color: #ffffff">
+          {{ "Customer" | translate }}
+          <p-sortIcon field="customer"></p-sortIcon>
+        </th>
+        <th pSortableColumn="startDate" style="background-color: #ffffff">
+          {{ "StartDate" | translate }}
+          <p-sortIcon field="startDate"></p-sortIcon>
+        </th>
+        <th style="background-color: #ffffff">{{ "Delete" | translate }}</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-project>
@@ -26,7 +46,7 @@
             <p-tableCheckbox [value]="project"></p-tableCheckbox>
           </div>
         </td>
-        <td class="record" style="text-align: center;">
+        <td class="record" style="text-align: center">
           <a
             [routerLink]="['edit', project.Id]"
             routerLinkActive="router-link-active"
@@ -35,13 +55,14 @@
           >
         </td>
         <td class="record">{{ project.Name }}</td>
-        <td>{{ project.Status | statusPipe }}</td>
+        <td>{{ project.Status | statusPipe | translate }}</td>
         <td>{{ project.Customer }}</td>
-        <td>{{ project.Start_Date | date: "dd.MM.yyyy" }}</td>
+        <td>{{ project.Start_Date | dateFormatPipe: "dd.MM.yyyy" }}</td>
         <td>
           <button
             pButton
             pRipple
+            style="padding: 0px"
             type="button"
             icon="pi pi-trash"
             class="p-button-danger p-button-text"
@@ -51,15 +72,30 @@
         </td>
       </tr>
     </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <p-button
+        type="button"
+        icon="pi pi-cloud"
+        styleClass="p-button-text"
+      ></p-button>
+    </ng-template>
   </p-table>
 </div>
+
+<p-confirmDialog
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+  acceptLabel="{{ 'Yes' | translate }}"
+  rejectLabel="{{ 'No' | translate }}"
+></p-confirmDialog>
 
 <div class="summary" *ngIf="selectedProject.length > 0">
   <div
     class="p-d-flex p-ai-center p-jc-between col-6"
     style="color: #2196f3; margin-top: 8.5px"
   >
-    {{ selectedProject.length }} items selected
+    {{ selectedProject.length }} {{ "SelectedItems" | translate }}
   </div>
   <div
     class="p-d-flex p-ai-center p-jc-between col-6"
@@ -68,9 +104,9 @@
     <button
       pButton
       pRipple
-      class="p-button-danger mb-2"
+      class="p-button-danger p-button-text"
       type="submit"
-      label="delete selected items"
+      label="{{ 'DeleteSelectedItems' | translate }}"
       (click)="deleteSelectedProject()"
       icon="pi pi-trash"
       iconPos="right"
@@ -78,16 +114,11 @@
   </div>
 </div>
 
-<!-- <div class="row">
-  <div class="col-md-9"></div>
-</div> -->
-
-<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
-
 <p-paginator
   #paginator
-  [rows]="10"
-  [totalRecords]="100"
-  pageLinkSize="4"
+  *ngIf="projectList$ | async as projectList"
+  [rows]="projectList.PagingInfo.TotalPages"
+  [totalRecords]="projectList.PagingInfo.TotalItems"
+  [pageLinkSize]="projectList.PagingInfo.ItemsPerPage"
   (onPageChange)="paginate($event)"
 ></p-paginator>

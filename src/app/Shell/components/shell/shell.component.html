@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" routerLink="/">PIM Tool</a>
     <button
@@ -32,13 +32,33 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav> -->
 
 <div id="content">
-  <div id="titleContent" >
-    <a routerLink="/">
-      <img src="assets/img/logo.png" />
-    </a>
+  <div id="titleContent" class="row">
+    <div class="col-md-11 row">
+      <div class="col-md-2">
+        <a routerLink="/" style="padding: 0px">
+          <img src="assets/img/logo.png" />
+        </a>
+      </div>
+      <div class="col-md-9">
+        <h4 style="padding: 0px; margin: 0px">
+          {{ "ProjectInformationManagement" | translate }}
+        </h4>
+      </div>
+    </div>
+
+    <div class="col-md-1">
+      <p-selectButton
+        [options]="langs"
+        [(ngModel)]="currentLang"
+        optionLabel="name"
+        (onChange)="switchLang()"
+        optionValue="name"
+      ></p-selectButton>
+    </div>
+
   </div>
 
   <hr />
@@ -51,7 +71,7 @@
     <div class="col-md-9">
       <div>
         <router-outlet></router-outlet>
-        <hr />
+        <br />
         <footer>
           <p>&copy; 2021</p>
         </footer>

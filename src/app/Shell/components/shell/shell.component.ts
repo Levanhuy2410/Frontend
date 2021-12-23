@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -8,9 +9,19 @@ import { PrimeNGConfig } from 'primeng/api';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShellComponent implements OnInit {
-  constructor(private primengConfig: PrimeNGConfig){
+  langs: {name: string}[] = [];
+  currentLang: {name: string} = {name: 'EN'};
 
+  constructor(private primengConfig: PrimeNGConfig, public translate: TranslateService){
+    this.langs = translate.getLangs().map((value) => {
+      return {name: value.toLocaleUpperCase()};
+    });
   }
+
+  switchLang() {
+    this.translate.use(this.currentLang.name.toLocaleLowerCase());
+  }
+
   ngOnInit(): void {
     this.primengConfig.ripple = true;
   }

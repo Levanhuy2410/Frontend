@@ -1,3 +1,4 @@
+
 import { ProjectUpdateService } from './services/project-update.service';
 import { NgModule } from '@angular/core';
 import { PIMBaseModule } from '../Base/base.module';
@@ -20,13 +21,17 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CalendarModule } from 'primeng/calendar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { dateFormatPipe } from '../Base/pipes/date-pipe.pipe';
+
 
 @NgModule({
     declarations: [ProjectListComponent, ProjectCreateComponent, ProjectSearchComponent],
-    providers: [ProjectCreateService, ProjectListService, ProjectUpdateService, DatePipe, ConfirmationService, MessageService],
+    providers: [ProjectCreateService, ProjectListService, ProjectUpdateService, DatePipe, ConfirmationService, MessageService, dateFormatPipe],
     imports: [ProjectRoutingModule, PIMBaseModule, ApiModule, ButtonModule,
         InputTextModule, DropdownModule, PaginatorModule,
-        TableModule, ReactiveFormsModule, MultiSelectModule, MessageModule, MessagesModule, ConfirmDialogModule]
+        TableModule, ReactiveFormsModule, MultiSelectModule, MessageModule, MessagesModule, ConfirmDialogModule, CalendarModule, ToggleButtonModule]
 })
 export class ProjectModule {
 

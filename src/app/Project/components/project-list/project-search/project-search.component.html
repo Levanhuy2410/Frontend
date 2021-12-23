@@ -1,41 +1,145 @@
-<form class="form-inline" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-  <label class="sr-only" for="detail">Name</label>
-  <input
-    type="text"
-    class="mb-2 mr-sm-2"
-    id="detail"
-    placeholder="Project number, detail, name"
-    pInputText
-    formControlName="detail"
-  />
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <div class="form-inline">
+    <label class="sr-only" for="detail">Name</label>
+    <input
+      type="text"
+      class="mb-2 mr-sm-2"
+      id="detail"
+      placeholder="{{ 'DetailPlaceholder' | translate }}"
+      pInputText
+      formControlName="detail"
+    />
 
-  <label class="sr-only" for="status">Username</label>
-  <p-dropdown
-    [options]="status"
-    placeholder="Project status "
-    styleClass="mb-2 mr-sm-2 status"
-    [style]="{ width: '100%' }"
-    optionLabel="name"
-    id="status"
-    formControlName="status"
-  >
-  </p-dropdown>
+    <label class="sr-only" for="status">Username</label>
+    <p-dropdown
+      [options]="status"
+      placeholder="{{ 'StatusPlaceholder' | translate }}"
+      styleClass="mb-2 mr-sm-2 status"
+      [style]="{ width: '100%' }"
+      optionLabel="name"
+      dataKey="value"
+      id="status"
+      formControlName="status"
+    >
+    </p-dropdown>
 
+    <button
+      pButton
+      pRipple
+      class="p-button-info mb-2 search-button"
+      type="submit"
+      label="{{ 'SearchProject' | translate }}"
+      [disabled]="!searchForm.valid"
+    ></button>
+    <button
+      pButton
+      pRipple
+      class="p-button-raised p-button-text p-button-plain mb-2 search-button"
+      type="reset"
+      label="{{ 'ResetSearch' | translate }}"
+      style="color: #2196f3"
+      (click)="onReset()"
+    ></button>
+  </div>
+
+  <!-- <div formGroupName="advanced"> -->
   <button
     pButton
     pRipple
-    class="p-button-info mb-2"
-    type="submit"
-    label="Search Project"
-    [disabled]="!searchForm.valid"
+    type="button"
+    class="p-button-raised p-button-help mb-2 col-6"
+    label="{{ advancedLabel | translate }}"
+    (click)="changeAdvanced()"
   ></button>
-  <button
-    pButton
-    pRipple
-    class="p-button-raised p-button-text p-button-plain mb-2"
-    type="reset"
-    label="Reset Search"
-    style="color: #2196f3"
-    (click)="onReset()"
-  ></button>
+
+  <!-- <div class="col-7"></div> -->
+
+  <div id="advanced" *ngIf="isAdvanced">
+    <div class="form-group">
+      <label class="col-2" for="leader">{{
+        "Project Leader" | translate
+      }}</label>
+      <p-dropdown
+        [options]="employeeList$ | async"
+        placeholder="{{ 'Project Leader Placeholder' | translate }}"
+        optionLabel="Visa"
+        optionValue="Visa"
+        id="leader"
+        styleClass="mb-2 mr-sm-2 "
+        [style]="{ width: '33.33%' }"
+        formControlName="leader"
+      >
+      </p-dropdown>
+    </div>
+
+    <div class="form-group">
+      <label class="col-2" for="members">{{
+        "Members Contains" | translate
+      }}</label>
+      <p-multiSelect
+        [options]="employeeList$ | async"
+        defaultLabel="{{ 'MembersPlaceholder' | translate }}"
+        id="members"
+        optionLabel="Visa"
+        optionValue="Visa"
+        display="chip"
+        styleClass="mb-2 mr-sm-2"
+        [style]="{ width: '33.33%' }"
+        formControlName="members"
+      ></p-multiSelect>
+    </div>
+
+    <!-- <div class="col-5"></div> -->
+    <div class="form-group">
+      <label class="col-2" for="startDate">{{
+        "Start Date" | translate
+      }}</label>
+      <p-calendar
+        [style]="{ padding: '0px' }"
+        styleClass="mb-2 mr-sm-2"
+        [style]="{ width: '33.33%' }"
+        dateFormat="dd-mm-yy"
+        formControlName="startDate"
+        [showIcon]="true"
+      ></p-calendar>
+      <p-toggleButton
+        *ngIf="searchForm.get('startDate').dirty"
+        onLabel="Later"
+        offLabel="Earlier"
+        styleClass="mb-2 mr-sm-2"
+        formControlName="isLargerThanStartDate"
+      ></p-toggleButton>
+    </div>
+    <div class="form-group">
+      <label class="col-2" for="endDate">{{ "End Date" | translate }}</label>
+      <p-calendar
+        [style]="{ padding: '0px' }"
+        styleClass="mb-2 mr-sm-2"
+        dateFormat="dd-mm-yy"
+        [style]="{ width: '33.33%' }"
+        [showIcon]="true"
+        formControlName="endDate"
+      ></p-calendar>
+
+      <p-toggleButton
+        *ngIf="searchForm.get('endDate').dirty"
+        onLabel="Later"
+        offLabel="Earlier"
+        styleClass="mb-2 mr-sm-2"
+        formControlName="isLargerThanEndDate"
+      ></p-toggleButton>
+    </div>
+
+    <div class="form-group">
+      <button
+        pButton
+        pRipple
+        class="p-button-raised p-button-text p-button-plain mb-2 col-6"
+        type="button"
+        label="{{ 'Reset Advanced Filter' | translate }}"
+        style="color: #2196f3"
+        (click)="onResetAdvanced()"
+      ></button>
+    </div>
+  </div>
 </form>

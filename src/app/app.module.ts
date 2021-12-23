@@ -13,13 +13,13 @@ import { ApiConfiguration } from './swagger/api-configuration';
 import { EnvironmentApiConfiguration } from './api-config';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 export function HttpLoaderFactory(http: HttpClient, loc: Location) {
   return new TranslateHttpLoader(http, loc.prepareExternalUrl('/assets/i18n/'), '.json');
 }
 
 @NgModule({
   declarations: [
+    
   ],
   imports: [
     BrowserModule,
@@ -47,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient, loc: Location) {
 })
 export class AppModule {
   constructor(translate: TranslateService) {
+    translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
   }
 }

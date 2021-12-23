@@ -1,3 +1,5 @@
+export { SortFilterDto } from './models/sort-filter-dto';
+export { DateFilter } from './models/date-filter-dto';
 export { SampleDto } from './models/sample-dto';
 export { EmployeeDto } from './models/employee-dto';
 export { PagingInfoDto } from './models/paging-info-dto';

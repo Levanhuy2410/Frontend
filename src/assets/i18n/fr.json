@@ -1,0 +1,64 @@
+{
+  "ProjectInformationManagement": "Gestion de l'information sur le projet ",
+  "ProjectList": "Liste des projets",
+  "Number": "Nombre",
+  "Name": "Nom",
+  "Status": "Statut",
+  "Customer": "Client",
+  "StartDate": "Date de début",
+  "Delete": "Supprimer",
+  "DetailPlaceholder": "Numéro de projet, détail, nom",
+  "StatusPlaceholder": "L'état du projet",
+  "SearchProject": "Rechercher un projet",
+  "ResetSearch": "Réinitialiser la recherche",
+  "SelectedItems": "éléments sélectionnés",
+  "DeleteSelectedItems": "supprimer les éléments sélectionnés",
+
+  "Project": "Projet",
+  "Supplier": "Fournisseur",
+
+  "StatusOptions": {
+    "new": "Nouveau",
+    "inp": "En cours",
+    "pla": "Prévu",
+    "fin": "Fini"
+  },
+
+  "ProjectNumber": "Numéro de projet",
+  "ProjectName": "Nom du projet",
+  "Group": "Grouper",
+  "Members": "Membres",
+  "EndDate": "Date de fin",
+  "Cancel": "Annuler",
+  "MembersPlaceholder": "sélectionner des membres",
+  "Create Project": "Créer un projet",
+  "Update Project": "Mettre à jour le projet",
+  "New Project": "Nouveau projet",
+  "Edit Project information": "Modifier les informations du projet",
+
+  "Required": "Ce champ est requis.",
+  "StartDateError": "La date de début est postérieure à la date de fin.",
+  "MaxLength": "La longueur maximale de ce champ est",
+  "Characters": "personnages.",
+
+  "CreateConfirm": "Voulez-vous créer ce projet ?",
+  "UpdateConfirm": "Voulez-vous mettre à jour ce projet ?",
+  "RecordCreated": "Enregistrement créé",
+  "RecordUpdated": "Enregistrement mis à jour",
+
+  "Yes": "Oui",
+  "No": "Non",
+
+  "DeleteSingleConfirm": "Êtes-vous sûr de vouloir supprimer ce projet ?",
+  "DeleteMultipleConfirm": "Êtes-vous sûr de vouloir supprimer plusieurs projets sélectionnés ?",
+  "RecordDeleted": "Enregistrement supprimé",
+  "Confirmation": "Confirmation",
+
+  "Confirmed": "Confirmé",
+  "Error": "Erreur",
+
+  "Advanced": {
+    "hideAdvanced": "Masquer le filtre avancé",
+    "showAdvanced": "Afficher le filtre avancé"
+  }
+}

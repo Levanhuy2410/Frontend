@@ -5,12 +5,15 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProjectListDto } from '../../swagger/models/project-list-dto';
 import { ProjectService } from '../../swagger/services/project.service';
+import { SortFilterDto } from 'src/app/swagger/models/sort-filter-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectListService {
   projectListSource = new BehaviorSubject<ProjectListDto>(null);
+  filterSource = new BehaviorSubject<FilterDto>(null);
+  sortFilterSource = new BehaviorSubject<SortFilterDto>({ Field: "", Order: 1 });
 
   constructor(private projectService: ProjectService, private route: ActivatedRoute) {
 
@@ -21,17 +24,25 @@ export class ProjectListService {
             Detail: params.detail,
             Status: params.status,
           }
-          this.filterProjects(filter, params.page).subscribe();
+          this.filterSource.next(filter);
+          this.filterSource.subscribe(data => {
+            this.filterProjects(data, params.page).subscribe();
+          })
+
         }
         else if (params.page) {
-          this.getProjectsPagination(params.page).subscribe();
+          // this.sortFilterSource.subscribe(sort => {
+          // this.sortFilterSource.subscribe(data => {
+            this.getProjectsPagination(this.sortFilterSource.value, params.page).subscribe();
+          // })
+          // })
         }
       }
       );
   }
 
-  getProjectsPagination(page: number): Observable<ProjectListDto> {
-    return this.projectService.ProjectGetPagination(page).pipe(tap(data => {
+  getProjectsPagination(sortFilter: SortFilterDto, page: number): Observable<ProjectListDto> {
+    return this.projectService.ProjectGetPagination(sortFilter, page).pipe(tap(data => {
       this.projectListSource.next(data)
     }
     ));

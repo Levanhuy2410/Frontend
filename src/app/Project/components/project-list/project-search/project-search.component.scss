@@ -6,7 +6,19 @@
     width: 20%;
 }
 
-button {
+.search-button {
     width: 20%;
     margin-inline: 5px;
+}
+
+#advanced {
+    padding: 0px;
+}
+
+.form-inline label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 0;
+    padding: 0px;
 }
